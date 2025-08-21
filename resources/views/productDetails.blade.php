@@ -8,7 +8,7 @@
                 <div class="col-md-4 col-sm-6">
 
                     <x-card_product :title="$product->name" :description="$product->description"
-                        :price="$product->price" />
+                        :price="$product->price" :id="$product->id" />
 
                 </div>
             </div>

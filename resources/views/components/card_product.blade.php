@@ -1,3 +1,5 @@
+@props(['title', 'description', 'price', 'id'])
+
 <div class="card h-100 shadow-sm bg-light">
     <div class="card-body p-4">
         <div class="d-flex align-items-start mb-3">
@@ -24,6 +26,9 @@
                 Editar
             </button>
         </a>
-        <button type="button" class="btn btn-danger ">Excluir</button>
+
+        <a href="{{ route('confirm', ['id'=> Crypt::encrypt($id)]) }}">
+            <button type="button" class="btn btn-danger ">Excluir</button>
+        </a>
     </div>
 </div>

@@ -1,6 +1,6 @@
 @props(['product'])
 
-<form action="{{ route('products.store') }}" method="POST">
+<form action="{{ route('products.update', ['id'=>$product->id]) }}" method="post">
     @csrf
     @method('PUT')
 
