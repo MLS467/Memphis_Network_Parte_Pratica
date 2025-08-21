@@ -3,16 +3,24 @@
 namespace App\Http\Controllers\Products;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ProductRequest;
+use App\Models\Product;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Crypt;
+use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class MainController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): View
     {
-        //
+        $data = Product::orderBy('created_at', 'desc')->get();
+        // dd($data);
+        return view('home', compact('data'));
     }
 
     /**
@@ -20,23 +28,39 @@ class MainController extends Controller
      */
     public function create()
     {
-        //
+        return view('newProduct');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+        try {
+            $validated_form = $request->validated();
+
+            DB::transaction(function () use ($validated_form) {
+                Product::create($validated_form);
+            });
+
+            return redirect()
+                ->route('products.index')
+                ->with("success", "Producto cadastrado com sucesso.");
+        } catch (Exception $e) {
+            echo $e;
+            return redirect()
+                ->back()
+                ->withInput()
+                ->withErrors('Não foi possível cadastrar o produto. Tente novamente.');
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Product $product)
     {
-        //
+        return view('productDetails', compact('product'));
     }
 
     /**
@@ -44,7 +68,12 @@ class MainController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $id = Crypt::decrypt($id);
+
+        $product = Product::where('id', $id)
+            ->first();
+
+        return view("editProduct", compact('product'));
     }
 
     /**
