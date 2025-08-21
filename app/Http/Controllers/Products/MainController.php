@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Products;
 
+use App\Exceptions\AppException;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductEditRequest;
 use App\Http\Requests\ProductRequest;
@@ -26,7 +27,7 @@ class MainController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(): View
     {
         return view('newProduct');
     }
@@ -34,7 +35,7 @@ class MainController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(ProductRequest $request)
+    public function store(ProductRequest $request): \Illuminate\Http\RedirectResponse
     {
         try {
             $validated_form = $request->validated();
@@ -45,23 +46,16 @@ class MainController extends Controller
 
             return redirect()
                 ->route('products.index')
-                ->with("success", "Producto cadastrado com sucesso.");
+                ->with("success", "Produto cadastrado com sucesso.");
         } catch (Exception $e) {
-            if (env('APP_ENV') == 'local') {
-                dd($e->getMessage());
-            };
-
-            return redirect()
-                ->back()
-                ->withInput()
-                ->withErrors('Não foi possível cadastrar o produto. Tente novamente.');
+            throw new AppException("Não foi possível cadastrar o produto. Tente novamente.");
         }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Product $product)
+    public function show(Product $product): View
     {
         return view('productDetails', compact('product'));
     }
@@ -69,7 +63,7 @@ class MainController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(string $id): View
     {
         $id = Service::decrypt_service($id);
 
@@ -81,25 +75,19 @@ class MainController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ProductEditRequest $request, string $id)
+    public function update(ProductEditRequest $request, Product $product)
     {
+
         $data_validated = $request->validated();
 
         try {
-            Product::findOrFail($id)->update($data_validated);
+            $product->update($data_validated);
 
             return redirect()
                 ->route('products.index')
-                ->with("success", "Producto Atualizado com sucesso.");
+                ->with("success", "Produto Atualizado com sucesso.");
         } catch (Exception $e) {
-            if (env('APP_ENV') == 'local') {
-                dd($e->getMessage());
-            };
-
-            return redirect()
-                ->back()
-                ->withInput()
-                ->withErrors('Não foi possível Atualizar o produto. Tente novamente.');
+            throw new AppException("Não foi possível Atualizar o produto. Tente novamente.");
         }
     }
 
@@ -107,7 +95,7 @@ class MainController extends Controller
     {
         $id = Service::decrypt_service($id);
 
-        $product = Product::where('id', $id)->first();
+        $product = Product::findOrFail($id);
 
         return view("confirmDelete", compact('product'));
     }
@@ -115,7 +103,7 @@ class MainController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $id): \Illuminate\Http\RedirectResponse
     {
         try {
             $id = Service::decrypt_service($id);
@@ -126,13 +114,7 @@ class MainController extends Controller
                 ->route('products.index')
                 ->with('success', 'Produto excluído com sucesso!');
         } catch (Exception $e) {
-            if (env('APP_ENV') == 'local') {
-                dd($e->getMessage());
-            }
-
-            return redirect()
-                ->back()
-                ->withErrors('Não foi possível excluir o produto. Tente novamente.');
+            throw new AppException("Não foi possível excluir o produto. Tente novamente.");
         }
     }
 }
