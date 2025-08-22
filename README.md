@@ -1,61 +1,318 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Sistema de Gerenciamento de Produtos
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Sistema para gerenciamento de produtos desenvolvido em Laravel 12 com interface moderna usando Bootstrap 5.
 
-## About Laravel
+## Funcionalidades
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+-   CRUD completo de produtos (criar, listar, editar, excluir)
+-   Upload de imagens para produtos
+-   Validação de formulários
+-   Interface responsiva
+-   Sistema de alertas
+-   Preview de imagens
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Requisitos
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+-   PHP 8.2 ou superior
+-   Composer
+-   MySQL ou PostgreSQL
+-   Servidor web (Apache/Nginx) ou PHP built-in server
 
-## Learning Laravel
+## Instalação
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 1. Preparar o ambiente
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+```bash
+# Navegar para o diretório do projeto
+cd desafio_memphis_network
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+# Instalar dependências PHP
+composer install
 
-## Laravel Sponsors
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### 2. Configurar ambiente
 
-### Premium Partners
+```bash
+# Copiar arquivo de configuração
+copy .env.example .env
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+# Gerar chave da aplicação
+php artisan key:generate
+```
 
-## Contributing
+### 3. Configurar banco de dados
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Editar o arquivo `.env` com suas configurações de banco:
 
-## Code of Conduct
+```
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=nome_do_banco
+DB_USERNAME=usuario
+DB_PASSWORD=senha
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### 4. Preparar banco de dados
 
-## Security Vulnerabilities
+```bash
+# Executar migrações
+php artisan migrate
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+# Popular com dados de exemplo (opcional)
+php artisan db:seed --class=productsSeeder
+```
 
-## License
+### 5. Configurar storage
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```bash
+# Criar link simbólico para upload de imagens
+php artisan storage:link
+```
+
+### 6. Executar aplicação
+
+```bash
+# Iniciar servidor de desenvolvimento
+php artisan serve
+```
+
+A aplicação estará disponível em: http://localhost:8000
+
+## Estrutura do projeto
+
+```
+app/Http/Controllers/Products/  # Controladores do sistema
+app/Http/Requests/             # Validações de formulário
+app/Http/Service/              # Serviços auxiliares
+app/Models/                    # Models do banco de dados
+resources/views/               # Templates Blade
+resources/views/components/    # Componentes reutilizáveis
+database/migrations/           # Migrações do banco
+database/seeders/              # Populadores de dados
+public/assets/                 # Arquivos estáticos
+storage/app/public/photos/     # Upload de imagens
+```
+
+## Como usar
+
+### Acessar sistema
+
+-   Abra http://localhost:8000 no navegador
+-   Será redirecionado para a lista de produtos
+
+### Gerenciar produtos
+
+-   Clique em "novo produto" para adicionar
+-   Preencha nome, preço, descrição e imagem
+-   Use os botões "Editar" e "Excluir" para gerenciar
+
+### Upload de imagens
+
+-   Selecione arquivo de imagem no formulário
+-   Preview será exibido automaticamente
+-   Formatos aceitos: PNG, JPG, JPEG, GIF
+
+## Rotas disponíveis
+
+```
+GET     /                       # Redireciona para lista de produtos
+GET     /products               # Lista todos os produtos
+GET     /products/create        # Formulário para novo produto
+POST    /products               # Salvar novo produto
+GET     /products/{id}          # Detalhes do produto
+GET     /products/{id}/edit     # Formulário para editar
+PUT     /products/{id}          # Atualizar produto
+GET     /products/{id}/confirm-delete  # Confirmação de exclusão
+DELETE  /products/{id}          # Excluir produto
+```
+
+## Comandos úteis
+
+```bash
+# Limpar cache da aplicação
+php artisan cache:clear
+
+# Limpar cache de configuração
+php artisan config:clear
+
+# Limpar cache de views
+php artisan view:clear
+
+# Recriar banco de dados (apaga todos os dados)
+php artisan migrate:fresh --seed
+
+# Ver todas as rotas
+php artisan route:list
+```
+
+## Solução de problemas
+
+**Erro ao fazer upload de imagem:**
+
+```bash
+php artisan storage:link
+```
+
+**Erro de permissão:**
+
+```bash
+# Windows (no PowerShell como administrador)
+icacls storage /grant Everyone:F /T
+icacls bootstrap/cache /grant Everyone:F /T
+
+# Linux/Mac
+chmod -R 775 storage/ bootstrap/cache/
+```
+
+**Imagens não aparecem:**
+
+-   Verificar se existe a pasta public/storage
+-   Executar novamente: php artisan storage:link
+
+**Erro 500 interno:**
+
+-   Verificar logs em storage/logs/laravel.log
+-   Verificar configurações do .env
+-   Executar: php artisan config:cache
+
+## Tecnologias utilizadas
+
+-   Laravel 12
+-   PHP 8.2+
+-   Bootstrap 5
+-   MySQL
+-   Vite (build assets)
+-   Blade Templates
+
+Edite o arquivo `.env` com suas configurações:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=seu_banco
+DB_USERNAME=seu_usuario
+DB_PASSWORD=sua_senha
+```
+
+### 5. Execute as Migrações
+
+```bash
+# Criar tabelas
+php artisan migrate
+
+# Popular com dados de exemplo (opcional)
+php artisan db:seed
+```
+
+### 6. Configure o Storage
+
+```bash
+# Criar link simbólico para uploads
+php artisan storage:link
+```
+
+### 7. Inicie o Servidor
+
+```bash
+# Terminal 1 - Servidor Laravel
+php artisan serve
+
+```
+
+## 🌐 Acesso
+
+Abra seu navegador em: **http://localhost:8000**
+
+## 📁 Estrutura Principal
+
+```
+app/
+├── Http/Controllers/Products/    # Controllers do sistema
+├── Http/Requests/               # Validações de formulário
+├── Http/Service/                # Serviços auxiliares
+└── Models/                      # Models Eloquent
+
+resources/views/
+├── components/                  # Componentes Blade
+│   ├── alert/                  # Alertas do sistema
+│   ├── form/                   # Formulários
+│   └── home/                   # Componentes da home
+└── [páginas principais]
+
+public/assets/                   # Assets estáticos
+storage/app/public/photos/       # Upload de imagens
+```
+
+## 🛠️ Funcionalidades
+
+### Gerenciamento de Produtos
+
+-   **Listar** todos os produtos
+-   **Criar** novo produto com imagem
+-   **Editar** produto existente
+-   **Excluir** produto com confirmação
+-   **Visualizar** detalhes do produto
+
+### Sistema de Upload
+
+-   Upload de imagens para produtos
+-   Preview automático das imagens
+-   Validação de formatos (PNG, JPG, JPEG, GIF)
+-   Fallback para imagem padrão
+
+## 🎨 Design System
+
+-   **Cores Principais:** #6366f1, #8b5cf6
+-   **Efeitos:** Glassmorphism e gradientes
+-   **Tipografia:** Bootstrap 5 padrão
+-   **Componentes:** Cards, formulários e alertas modernos
+
+## 🔧 Comandos Úteis
+
+```bash
+# Limpar cache
+php artisan cache:clear
+php artisan config:clear
+php artisan view:clear
+
+# Recriar banco (cuidado!)
+php artisan migrate:fresh --seed
+
+# Verificar rotas
+php artisan route:list
+```
+
+## 📝 Observações
+
+-   As imagens são armazenadas em `storage/app/public/photos/`
+-   O sistema usa criptografia para IDs nas URLs
+-   Validação completa em todos os formulários
+-   Interface otimizada para mobile e desktop
+
+## 🐛 Problemas Comuns
+
+**Erro 500 ao fazer upload:**
+
+```bash
+php artisan storage:link
+chmod -R 755 storage/
+```
+
+**Imagens não aparecem:**
+
+```bash
+php artisan storage:link
+```
+
+**Erro de permissão:**
+
+```bash
+chmod -R 775 storage/ bootstrap/cache/
+```
+
+---
+
+**Desenvolvido com Laravel 11 + Bootstrap 5**

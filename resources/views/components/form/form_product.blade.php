@@ -67,7 +67,6 @@
                                 <i class="fas fa-info-circle me-1"></i>Selecione uma imagem (PNG, JPG, JPEG, GIF)
                             </div>
 
-                            <!-- Preview da imagem -->
                             <div id="imagePreview" class="mt-3" style="display: none;">
                                 <img id="preview" src="" alt="Preview"
                                     style="max-width: 200px; max-height: 200px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
@@ -81,23 +80,23 @@
                         </div>
 
                         <script>
-                        function previewImage(input) {
-                            const preview = document.getElementById('preview');
-                            const previewContainer = document.getElementById('imagePreview');
+                            function previewImage(input) {
+                                const preview = document.getElementById('preview');
+                                const previewContainer = document.getElementById('imagePreview');
 
-                            if (input.files && input.files[0]) {
-                                const reader = new FileReader();
+                                if (input.files && input.files[0]) {
+                                    const reader = new FileReader();
 
-                                reader.onload = function(e) {
-                                    preview.src = e.target.result;
-                                    previewContainer.style.display = 'block';
+                                    reader.onload = function(e) {
+                                        preview.src = e.target.result;
+                                        previewContainer.style.display = 'block';
+                                    }
+
+                                    reader.readAsDataURL(input.files[0]);
+                                } else {
+                                    previewContainer.style.display = 'none';
                                 }
-
-                                reader.readAsDataURL(input.files[0]);
-                            } else {
-                                previewContainer.style.display = 'none';
                             }
-                        }
                         </script>
 
                         <div class="d-flex gap-3 justify-content-end pt-3" style="border-top: 1px solid #f1f5f9;">

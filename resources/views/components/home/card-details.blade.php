@@ -8,14 +8,11 @@ use Illuminate\Support\Facades\Crypt;
     <div class="container-fluid px-0">
         <div class="row justify-content-center">
             <div class="col-lg-10">
-                <!-- Card principal com efeito glassmorphism -->
                 <div class="card border-0"
                     style="border-radius: 32px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(20px); box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);">
 
-                    <!-- Hero Section -->
                     <div class="position-relative overflow-hidden"
                         style="border-radius: 32px 32px 0 0; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 4rem 3rem 3rem 3rem;">
-                        <!-- Background pattern -->
                         <div class="position-absolute top-0 start-0 w-100 h-100"
                             style="background-image: radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 1px, transparent 1px), radial-gradient(circle at 80% 20%, rgba(255,255,255,0.1) 1px, transparent 1px); background-size: 30px 30px;">
                         </div>
@@ -71,7 +68,6 @@ use Illuminate\Support\Facades\Crypt;
                     <!-- Content Section -->
                     <div class="card-body" style="padding: 3rem;">
                         <div class="row">
-                            <!-- Descrição -->
                             <div class="col-lg-8 mb-4">
                                 <div class="card border-0 h-100"
                                     style="background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%); border-radius: 20px;">
@@ -90,10 +86,8 @@ use Illuminate\Support\Facades\Crypt;
                                 </div>
                             </div>
 
-                            <!-- Informações laterais -->
                             <div class="col-lg-4">
                                 <div class="row g-3">
-                                    <!-- Status -->
                                     <div class="col-12">
                                         <div class="card border-0"
                                             style="background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%); border-radius: 16px;">
@@ -109,7 +103,6 @@ use Illuminate\Support\Facades\Crypt;
                                         </div>
                                     </div>
 
-                                    <!-- Data -->
                                     <div class="col-12">
                                         <div class="card border-0"
                                             style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); border-radius: 16px;">
@@ -125,7 +118,6 @@ use Illuminate\Support\Facades\Crypt;
                                         </div>
                                     </div>
 
-                                    <!-- ID -->
                                     <div class="col-12">
                                         <div class="card border-0"
                                             style="background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); border-radius: 16px;">
@@ -145,7 +137,6 @@ use Illuminate\Support\Facades\Crypt;
                             </div>
                         </div>
 
-                        <!-- Action Buttons -->
                         <div class="row mt-5">
                             <div class="col-12">
                                 <div class="d-flex gap-3 justify-content-center">

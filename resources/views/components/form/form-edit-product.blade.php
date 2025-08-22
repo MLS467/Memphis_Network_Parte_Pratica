@@ -64,7 +64,6 @@
                             <label for="photo" class="form-label fw-semibold mb-2"
                                 style="color: #374151; font-size: 14px;">Imagem do Produto</label>
 
-                            <!-- Mostrar imagem atual se existir -->
                             @if($product->photo)
                             <div class="mb-3">
                                 <p class="text-muted small">Imagem atual:</p>
@@ -77,7 +76,6 @@
                                 accept="image/*" onchange="previewEditImage(this)"
                                 style="border-radius: 12px; padding: 0.875rem 1rem; font-size: 15px; box-shadow: none;">
 
-                            <!-- Preview da nova imagem -->
                             <div id="editImagePreview" style="display: none; margin-top: 15px;">
                                 <p class="text-muted small">Nova imagem selecionada:</p>
                                 <img id="editPreviewImg" src="" alt="Preview"
@@ -112,21 +110,21 @@
 </div>
 
 <script>
-function previewEditImage(input) {
-    const preview = document.getElementById('editImagePreview');
-    const previewImg = document.getElementById('editPreviewImg');
+    function previewEditImage(input) {
+        const preview = document.getElementById('editImagePreview');
+        const previewImg = document.getElementById('editPreviewImg');
 
-    if (input.files && input.files[0]) {
-        const reader = new FileReader();
+        if (input.files && input.files[0]) {
+            const reader = new FileReader();
 
-        reader.onload = function(e) {
-            previewImg.src = e.target.result;
-            preview.style.display = 'block';
+            reader.onload = function(e) {
+                previewImg.src = e.target.result;
+                preview.style.display = 'block';
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        } else {
+            preview.style.display = 'none';
         }
-
-        reader.readAsDataURL(input.files[0]);
-    } else {
-        preview.style.display = 'none';
     }
-}
 </script>
