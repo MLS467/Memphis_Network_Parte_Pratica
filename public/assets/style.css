@@ -1,0 +1,111 @@
+:root {
+    --roxoForte: #6464f4;
+    --roxoFraco: #8282f4;
+    --primary-purple: #6366f1;
+    --light-purple: rgba(99, 102, 241, 0.1);
+    --text-dark: #1e293b;
+    --text-muted: #64748b;
+}
+
+.btn-custom {
+    background-color: var(--roxoForte) !important;
+    color: white !important;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+/* Card Product Styles */
+.card-product {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: none !important;
+    border-radius: 16px !important;
+    background: #fdfdfd;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.card-product-link {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+.card-product-link:hover {
+    text-decoration: none !important;
+    color: inherit !important;
+}
+
+.card-product:hover {
+    background: red !important;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08) !important;
+}
+
+.product-icon {
+    width: 48px;
+    height: 48px;
+    background: var(--light-purple);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.product-badge {
+    background: var(--light-purple) !important;
+    color: var(--primary-purple) !important;
+    font-size: 12px;
+    font-weight: 500;
+    border-radius: 20px;
+    padding: 6px 12px;
+}
+
+.product-title {
+    color: var(--text-dark) !important;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+}
+
+.product-date {
+    color: var(--text-muted);
+    font-size: 12px;
+}
+
+.product-description {
+    color: var(--text-muted);
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.product-price {
+    color: var(--primary-purple) !important;
+    font-size: 24px;
+    font-weight: 700;
+}
+
+/* Form Styles */
+.form-control:focus {
+    border-color: transparent !important;
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1) !important;
+    background-color: #f8fafc !important;
+}
+
+.form-control::placeholder {
+    color: #9ca3af;
+    font-size: 14px;
+}
+
+.input-group-text {
+    font-weight: 500;
+}
+
+/* Button hover effects */
+.btn:hover {
+    transform: translateY(-1px);
+    transition: all 0.2s ease;
+}
+
+/* Card hover effect */
+.card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1) !important;
+    transition: all 0.3s ease;
+}
