@@ -22,7 +22,7 @@
                     <a href="{{ route('products.show', ['product' => $product->id]) }}" class="card-product-link">
 
                         <x-card_product :title="$product->name" :description="$product->description" :id="$product->id"
-                            :price="$product->price" />
+                            :price="$product->price" :photo="$product->photo" />
 
                     </a>
                 </div>

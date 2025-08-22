@@ -10,7 +10,8 @@
                 </div>
 
                 <div class="card-body" style="padding: 1rem 2rem 2rem 2rem;">
-                    <form action="{{ route('products.update', ['product'=>$product->id]) }}" method="post">
+                    <form action="{{ route('products.update', ['product'=>$product->id]) }}" method="post"
+                        enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
 
@@ -59,6 +60,40 @@
                             @enderror
                         </div>
 
+                        <div class="mb-4">
+                            <label for="photo" class="form-label fw-semibold mb-2"
+                                style="color: #374151; font-size: 14px;">Imagem do Produto</label>
+
+                            <!-- Mostrar imagem atual se existir -->
+                            @if($product->photo)
+                            <div class="mb-3">
+                                <p class="text-muted small">Imagem atual:</p>
+                                <img src="{{ asset('storage/' . $product->photo) }}" alt="Imagem atual"
+                                    style="max-width: 150px; height: auto; border-radius: 8px; border: 2px solid #e5e7eb;">
+                            </div>
+                            @endif
+
+                            <input type="file" class="form-control border-0 bg-light" id="photo" name="photo"
+                                accept="image/*" onchange="previewEditImage(this)"
+                                style="border-radius: 12px; padding: 0.875rem 1rem; font-size: 15px; box-shadow: none;">
+
+                            <!-- Preview da nova imagem -->
+                            <div id="editImagePreview" style="display: none; margin-top: 15px;">
+                                <p class="text-muted small">Nova imagem selecionada:</p>
+                                <img id="editPreviewImg" src="" alt="Preview"
+                                    style="max-width: 150px; height: auto; border-radius: 8px; border: 2px solid #6366f1;">
+                            </div>
+
+                            <small class="text-muted">Escolha uma nova imagem para substituir a atual. Formatos aceitos:
+                                JPG, PNG, GIF (máx. 2MB)</small>
+
+                            @error('photo')
+                            <div class="text-danger mt-2" style="font-size: 13px;">
+                                <i class="fas fa-exclamation-circle me-1"></i>{{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
                         <div class="d-flex gap-3 justify-content-end pt-3" style="border-top: 1px solid #f1f5f9;">
                             <a href="{{ route('products.index') }}" class="btn btn-light px-4 py-2"
                                 style="border-radius: 10px; font-weight: 500; color: #6b7280; border: 1px solid #e5e7eb;">
@@ -75,3 +110,23 @@
         </div>
     </div>
 </div>
+
+<script>
+function previewEditImage(input) {
+    const preview = document.getElementById('editImagePreview');
+    const previewImg = document.getElementById('editPreviewImg');
+
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+            previewImg.src = e.target.result;
+            preview.style.display = 'block';
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    } else {
+        preview.style.display = 'none';
+    }
+}
+</script>

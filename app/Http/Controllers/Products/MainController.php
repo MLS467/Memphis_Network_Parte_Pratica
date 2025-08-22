@@ -40,6 +40,10 @@ class MainController extends Controller
         try {
             $validated_form = $request->validated();
 
+            if ($request->hasFile('photo')) {
+                $validated_form['photo'] = Service::save_photo($request);
+            }
+
             DB::transaction(function () use ($validated_form) {
                 Product::create($validated_form);
             });
@@ -79,6 +83,10 @@ class MainController extends Controller
     {
 
         $data_validated = $request->validated();
+
+        if ($request->hasFile('photo')) {
+            $data_validated['photo'] = Service::save_photo($request);
+        }
 
         try {
             $product->update($data_validated);

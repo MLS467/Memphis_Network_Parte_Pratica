@@ -25,4 +25,15 @@ class Service
 
         return $value_decrypted;
     }
+
+
+    public static function save_photo($request)
+    {
+        if ($request->hasFile('photo')) {
+            $path = $request->file('photo')->store('photos', 'public');
+            return $path;
+        }
+
+        return null;
+    }
 }

@@ -25,6 +25,7 @@ class ProductRequest extends FormRequest
             'name' => ['required', 'string', 'max:100'],
             'price' => ['required', 'numeric', 'min:0'],
             'description' => ['required', 'string', 'max:1000'],
+            'photo' => ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:2048'],
         ];
     }
 
@@ -42,6 +43,10 @@ class ProductRequest extends FormRequest
             'description.required' => 'A descrição é obrigatória.',
             'description.string'   => 'A descrição deve ser um texto.',
             'description.max'      => 'A descrição não pode ultrapassar 1000 caracteres.',
+
+            'photo.image' => 'O arquivo enviado deve ser uma imagem.',
+            'photo.mimes' => 'A foto deve estar no formato JPG ou PNG.',
+            'photo.max'   => 'A foto não pode ter mais que 2MB.',
         ];
     }
 }

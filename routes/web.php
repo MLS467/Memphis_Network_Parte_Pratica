@@ -15,6 +15,9 @@ use Illuminate\Support\Facades\Route;
  * PUT	/products/{product}	products.update	update
  * DELETE	/products/{product}	products.destroy	destroy
  */
+
+Route::redirect('/', '/products');
+
 Route::resource('/products', MainController::class);
 
 Route::get('/products/{id}/confirm-delete', [MainController::class, 'confirm_delete'])

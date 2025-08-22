@@ -9,7 +9,7 @@
                 </div>
 
                 <div class="card-body" style="padding: 1rem 2rem 2rem 2rem;">
-                    <form action="{{ route('products.store') }}" method="POST">
+                    <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
 
                         <div class="row">
@@ -56,6 +56,49 @@
                             </div>
                             @enderror
                         </div>
+
+                        <div class="mb-4">
+                            <label for="photo" class="form-label fw-semibold mb-2"
+                                style="color: #374151; font-size: 14px;">Imagem do Produto</label>
+                            <input type="file" class="form-control border-0 bg-light" id="photo" name="photo"
+                                accept="image/*" onchange="previewImage(this)"
+                                style="border-radius: 12px; padding: 0.875rem 1rem; font-size: 15px; box-shadow: none;">
+                            <div class="form-text mt-2" style="font-size: 12px; color: #6b7280;">
+                                <i class="fas fa-info-circle me-1"></i>Selecione uma imagem (PNG, JPG, JPEG, GIF)
+                            </div>
+
+                            <!-- Preview da imagem -->
+                            <div id="imagePreview" class="mt-3" style="display: none;">
+                                <img id="preview" src="" alt="Preview"
+                                    style="max-width: 200px; max-height: 200px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+                            </div>
+
+                            @error('photo')
+                            <div class="text-danger mt-2" style="font-size: 13px;">
+                                <i class="fas fa-exclamation-circle me-1"></i>{{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+
+                        <script>
+                        function previewImage(input) {
+                            const preview = document.getElementById('preview');
+                            const previewContainer = document.getElementById('imagePreview');
+
+                            if (input.files && input.files[0]) {
+                                const reader = new FileReader();
+
+                                reader.onload = function(e) {
+                                    preview.src = e.target.result;
+                                    previewContainer.style.display = 'block';
+                                }
+
+                                reader.readAsDataURL(input.files[0]);
+                            } else {
+                                previewContainer.style.display = 'none';
+                            }
+                        }
+                        </script>
 
                         <div class="d-flex gap-3 justify-content-end pt-3" style="border-top: 1px solid #f1f5f9;">
                             <a href="{{ route('products.index') }}" class="btn btn-light px-4 py-2"

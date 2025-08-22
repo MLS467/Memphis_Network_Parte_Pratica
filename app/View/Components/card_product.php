@@ -15,8 +15,8 @@ class card_product extends Component
         public string $title,
         public string $description,
         public string $id,
-        public float $price
-
+        public float $price,
+        public string $photo,
     ) {
         //
     }
